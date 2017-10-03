@@ -14,7 +14,7 @@ ARCHITECTURE behavior OF mux01_tb IS
     PORT(
          crs2 : IN  std_logic_vector(31 downto 0);
          i : IN  std_logic;
-         sevout : IN  std_logic_vector(31 downto 0);
+         sevin : IN  std_logic_vector(31 downto 0);
          muxout : OUT  std_logic_vector(31 downto 0)
         );
     END COMPONENT;
@@ -23,7 +23,7 @@ ARCHITECTURE behavior OF mux01_tb IS
    --Inputs
    signal crs2 : std_logic_vector(31 downto 0) := (others => '0');
    signal i : std_logic := '0';
-   signal sevout : std_logic_vector(31 downto 0) := (others => '0');
+   signal sevin : std_logic_vector(31 downto 0) := (others => '0');
 
  	--Outputs
    signal muxout : std_logic_vector(31 downto 0);
@@ -37,7 +37,7 @@ BEGIN
    uut: mux01 PORT MAP (
           crs2 => crs2,
           i => i,
-          sevout => sevout,
+          sevin => sevin,
           muxout => muxout
         );
 
@@ -48,18 +48,18 @@ BEGIN
    stim_proc: process
    begin		
       -- hold reset state for 100 ns.
-      i <= '0';
+      
 		crs2 <= "11111111111111111111111111111111";
-		sevout <= "00000000000000000000000000001111";
-		
+		sevin <= "00000000000000000000000000001111";
+		i <= '0';
 		wait for 10 ns;
 		i <= '1';
 		crs2 <= "11110000000000000000000000000000";
-		sevout <= "00000000000000000000000000001111";
+		sevin <= "00000000000000000000000000001111";
 		wait for 10 ns;
 		i <= '0';
 		crs2 <= "11110000000000000000000000000000";
-		sevout <= "00000000000000000000000000001111";
+		sevin <= "00000000000000000000000000001111";
       -- insert stimulus here 
 
       wait;

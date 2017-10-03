@@ -8,17 +8,17 @@ use IEEE.std_logic_unsigned.all;
 entity mux01 is
     Port ( crs2 : in  STD_LOGIC_VECTOR (31 downto 0);
            i : in  STD_LOGIC;
-           sevout : in  STD_LOGIC_VECTOR (31 downto 0);
+           sevin : in  STD_LOGIC_VECTOR (31 downto 0);
            muxout : out  STD_LOGIC_VECTOR (31 downto 0));
 end mux01;
 
 architecture Behavioral of mux01 is
 
 begin
-	process (i)
+	process (i, sevin, crs2)
 		begin
 		if (i = '1') then
-			muxout <= sevout;
+			muxout <= sevin;
 		else
 			muxout <= crs2;
 		end if;
