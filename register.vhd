@@ -1,7 +1,8 @@
 
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+use IEEE.std_logic_unsigned.all;
 
 
 entity regis is
@@ -21,8 +22,12 @@ res <= datain;
 
 	process (clk, rst)
 		begin  
-			if (clk'event and clk = '1') then
-				dataout <= res;
+			if (clk'event and clk = '1' and rst = '0') then
+				if datain = "00000000000000000000000001000000" then
+					dataout<= "00000000000000000000000000000000";
+				else
+					dataout <= res;
+				end if;
 			end if;
 			if (rst = '1') then
 		      dataout <= "00000000000000000000000000000000";
