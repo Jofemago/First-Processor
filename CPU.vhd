@@ -98,13 +98,13 @@ signal auxsumnpc : std_logic_vector(31 downto 0); -- conecta el sumador al npc
 signal auxinsIM : std_logic_vector(31 downto 0); -- sale del instruccion memory y conecta todos los modulos de ls siguientes señales
 
 
-	signal auxop : std_logic_vector(1 downto 0) := auxinsIM(31 downto 30); -- conecta bits(31,30) del IM con Control_unit
-	signal auxop3 : std_logic_vector(5 downto 0) := auxinsIM(24 downto 19); -- conecta bits(24,19) del IM con Control_unit
-	signal auxrs1 : std_logic_vector(4 downto 0) := auxinsIM(18 downto 14); -- conecta bits(18,14) del IM con con el rs1 del registerfile
-	signal auxrs2 : std_logic_vector(4 downto 0) := auxinsIM(4 downto 0);-- conecta bits(4,0) del IM con el rs2 del registerfile
-	signal auxrd : std_logic_vector(4 downto 0) := auxinsIM(29 downto 25);-- conecta bits(29,25) del IM con el rd del registerfile
-	signal auxi : std_logic := auxinsIM(13);-- conecta bit 13 del IM con el multiplexor
-	signal auximm3 : std_logic_vector(12 downto 0) := auxinsIM(12 downto 0);-- conecta bits(12,0) del IM con el seu
+	--signal auxop : std_logic_vector(1 downto 0) := auxinsIM(31 downto 30); -- conecta bits(31,30) del IM con Control_unit
+	--signal auxop3 : std_logic_vector(5 downto 0) := auxinsIM(24 downto 19); -- conecta bits(24,19) del IM con Control_unit
+	--signal auxrs1 : std_logic_vector(4 downto 0) := auxinsIM(18 downto 14); -- conecta bits(18,14) del IM con con el rs1 del registerfile
+	--signal auxrs2 : std_logic_vector(4 downto 0) := auxinsIM(4 downto 0);-- conecta bits(4,0) del IM con el rs2 del registerfile
+	--signal auxrd : std_logic_vector(4 downto 0) := auxinsIM(29 downto 25);-- conecta bits(29,25) del IM con el rd del registerfile
+	--signal auxi : std_logic := auxinsIM(13);-- conecta bit 13 del IM con el multiplexor
+	--signal auximm3 : std_logic_vector(12 downto 0) := auxinsIM(12 downto 0);-- conecta bits(12,0) del IM con el seu
 	
 
 signal auxcontalu : std_logic_vector(5 downto 0); -- conecta la alu con unidad de control
@@ -147,29 +147,29 @@ begin
 	
 	
 		CU: ControlUnit PORT MAP( -- controlunit
-		op => auxop,
-		op3 => auxop3,
+		op => auxinsIM(31 downto 30),--auxop
+		op3 => auxinsIM(24 downto 19),--auxop3
 		aluop => auxcontalu
 	);
 	
 		RegisterF: RegisterFile PORT MAP( -- register file
-		rs1 => auxrs1,
-		rs2 => auxrs2,
-		rd =>  auxrd,
-		DtoWrite => auxresult,
+		rs1 => auxinsIM(18 downto 14),--auxrs1
+		rs2 => auxinsIM(4 downto 0),--auxrs2
+		rd =>  auxinsIM(29 downto 25),--auxrd
+		DtoWrite => auxresult,--auxresult
 		rst => rst,
-		crs1 => auxcrs1,
-		crs2 => auxcrs2
+		crs1 => auxcrs1,--auxcrs1
+		crs2 => auxcrs2--auxcrs2
 	);
 	
 	ISEU: SEU PORT MAP(-- unidad de extension de signo
-		imm13 => auximm3,
+		imm13 => auxinsIM(12 downto 0),--auximm3
 		seuout => auxseumux
 	);
 
 	MULTIPLEXOR: mux01 PORT MAP(
 		crs2 => auxcrs2,
-		i => auxi,
+		i => auxinsIM(13),--auxi
 		seuin => auxseumux,
 		muxout => auxmuxalu
 	);
