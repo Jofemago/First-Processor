@@ -121,7 +121,7 @@ begin
 
 	SUMADOR: sumador32bits PORT MAP(
 		datainA => "00000000000000000000000000000001",
-		datainB => auxpcsumim,
+		datainB => auxpcs,
 		Salida =>  auxsumnpc
 	);
 
