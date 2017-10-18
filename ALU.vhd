@@ -24,7 +24,7 @@ begin
 			when "000001" => -- equivale al op3 del and para los enteros
 				aluresult <= crs1 AND mux ;
 			when "000101" =>-- equivale al and not para los enteros
-				aluresult <= NOT(crs1 AND mux);
+				aluresult <= (crs1 AND (NOT mux));
 	      when "000010" =>-- equivale al or para los enteros
 	         aluresult <= crs1 OR mux ;
 	      when "000110" => --equivale al or not para los enteros
